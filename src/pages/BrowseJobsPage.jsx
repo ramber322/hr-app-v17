@@ -471,12 +471,21 @@ if (application.documents.pds) {
    // ═══════════════════════════════════════════════════════════
 const docFileNames = {};
 
-// PDS — use uploaded if provided, else profile
 if (application.documents.pds) {
   const result = await uploadFile(application.documents.pds, `${selectedJob.id}/${applicant.id}`, 'pds');
   docFileNames.pds = result.fileName;
-} else {
-  docFileNames.pds = profileDocs.pds_file_url;
+} else if (profileDocs.pds_file_url) {
+  try {
+    const res = await fetch(profileDocs.pds_file_url);
+    const blob = await res.blob();
+    const ext = profileDocs.pds_file_url.split('.').pop().split('?')[0];
+    const file = new File([blob], `pds.${ext}`, { type: blob.type });
+    const result = await uploadFile(file, `${selectedJob.id}/${applicant.id}`, 'pds');
+    docFileNames.pds = result.fileName;
+  } catch (err) {
+    console.error('Failed to copy PDS from profile:', err);
+    docFileNames.pds = profileDocs.pds_file_url;
+  }
 }
 
 // TOR — use uploaded if provided, else COPY from profile
@@ -499,7 +508,6 @@ if (application.documents.transcript) {
   }
 }
 
-// Performance Rating — use uploaded if provided, else profile
 // Performance Rating — use uploaded if provided, else COPY from profile
 if (application.documents.performanceRating) {
   const result = await uploadFile(application.documents.performanceRating, `${selectedJob.id}/${applicant.id}`, 'performanceRating');
@@ -604,10 +612,14 @@ const docsSubmitted = {
     const requirementsMet = screeningResult.fit_analysis?.requirements_met || '0/0';
 
     setSuccessData({
-      positionTitle: selectedJob.position_title,
-      score: score,
-      requirementsMet: requirementsMet
-    });
+  positionTitle: selectedJob.position_title,
+  score: score,
+  requirementsMet: requirementsMet,
+  manualReview: screeningResult.requires_manual_review === true,
+  lowConfidenceFields: screeningResult.low_confidence_fields || [],
+  extractionNote: screeningResult.extraction_note || null,
+  sourceFormat: screeningResult.source_format || 'excel',
+});
     setShowSuccessPopup(true);
 
     setShowJobDetailsModal(false);
