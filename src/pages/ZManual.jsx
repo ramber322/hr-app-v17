@@ -63,10 +63,12 @@ export default function ZManual() {
 
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     {[
-      { name: 'PDF Form (TOR)', file: '/downloads/transcript-of-records.pdf', type: 'PDF' },
-      { name: 'PDF Form (Performance Rating)', file: '/downloads/performance rating.pdf', type: 'PDF' },
-      { name: 'Bachelor-3yrs-10TH', file: '/downloads/CSC (Bachelor)-(3yrs)-(PROF)-(10TH).xlsx', type: 'XLSX' },
-      { name: 'Master-4yrs-30TH', file: '/downloads/CSC (Master)-(4yrs)-(PROF)-(30TH).xlsx', type: 'XLSX' },
+      { name: 'Transcript of Records', file: '/downloads/transcript-of-records.pdf', type: 'PDF' },
+      { name: 'Performance Rating', file: '/downloads/performance rating.pdf', type: 'PDF' },
+      { name: 'Bachelor-(2yrs)-(22TH)', file: '/downloads/CSC (Bachelor)-(2yrs)-(22TH).xlsx', type: 'XLSX' },
+      { name: 'Master-(3yrs)-(30TH)', file: '/downloads/CSC (Master)-(3yrs)-(30TH).xlsx', type: 'XLSX' },
+      { name: 'Bachelor-(2yrs)-(22TH)', file: '/downloads/CSC (Bachelor)-(2yrs)-(22TH).pdf', type: 'PDF' },
+      { name: 'Master-(3yrs)-(30TH)', file: '/downloads/CSC (Master)-(3yrs)-(30TH).pdf', type: 'PDF' },
     ].map((f) => (
       <a
         key={f.file}
