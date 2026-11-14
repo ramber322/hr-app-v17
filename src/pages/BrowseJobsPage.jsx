@@ -146,20 +146,22 @@ useEffect(() => {
   // DETECT JOB CATEGORY
   // =========================
   const detectJobCategory = (positionTitle) => {
-    const title = positionTitle.toLowerCase();
-    if (title.includes('it') || title.includes('information technology') || title.includes('developer') || title.includes('tech')) return 'it';
-    if (title.includes('engineer')) return 'engineering';
-    if (title.includes('account') || title.includes('budget') || title.includes('finance')) return 'finance';
-    if (title.includes('admin') || title.includes('clerk') || title.includes('officer')) return 'administrative';
-    if (title.includes('building') || title.includes('construction') || title.includes('inspector')) return 'construction';
-    if (title.includes('utility') || title.includes('mechanic') || title.includes('technician')) return 'technical';
-    if (title.includes('information') || title.includes('media') || title.includes('communication')) return 'communications';
-    if (title.includes('social') || title.includes('community') || title.includes('welfare')) return 'social_services';
-    if (title.includes('planning') || title.includes('development')) return 'planning';
-    if (title.includes('sports') || title.includes('recreation')) return 'sports';
-    if (title.includes('agriculture') || title.includes('veterinary') || title.includes('slaughterhouse')) return 'agriculture';
-    return 'administrative';
-  };
+  const title = (positionTitle || '').toLowerCase();
+
+  if (/\b(it|information technology|developer|tech support)\b/.test(title)) return 'it';
+  if (/\bengineer\b/.test(title)) return 'engineering';
+  if (/\b(account|accounting|budget|finance|cashier|treasury)\b/.test(title)) return 'finance';
+  if (/\b(building inspector|construction|foreman|inspector)\b/.test(title)) return 'construction';
+  if (/\b(mechanic|technician|technical|automotive)\b/.test(title)) return 'technical';
+  if (/\b(agriculture|veterinary|veterinarian|slaughterhouse|agriculturist)\b/.test(title)) return 'agriculture';
+  if (/\b(sports|recreation)\b/.test(title)) return 'sports';
+  if (/\b(planning|development officer|urban planner)\b/.test(title)) return 'planning';
+  if (/\b(social worker|community affairs|social welfare)\b/.test(title)) return 'social_services';
+  if (/\b(information officer|media|communication|journalism)\b/.test(title)) return 'communications';
+  if (/\b(administrative|admin|clerk|secretary|office staff|administrative aide|administrative officer)\b/.test(title)) return 'administrative';
+
+  return 'administrative';
+};
 
   // =========================
   // SCREEN PDS WITH PYTHON API

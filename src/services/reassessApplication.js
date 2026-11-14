@@ -5,9 +5,20 @@ const API_URL = 'http://localhost:8000';
 
 const detectJobCategory = (positionTitle) => {
   const title = (positionTitle || '').toLowerCase();
-  if (title.includes('admin')) return 'administrative';
-  if (title.includes('it') || title.includes('information technology')) return 'it';
-  return 'general';
+
+  if (/\b(it|information technology|developer|tech support)\b/.test(title)) return 'it';
+  if (/\bengineer\b/.test(title)) return 'engineering';
+  if (/\b(account|accounting|budget|finance|cashier|treasury)\b/.test(title)) return 'finance';
+  if (/\b(building inspector|construction|foreman|inspector)\b/.test(title)) return 'construction';
+  if (/\b(mechanic|technician|technical|automotive)\b/.test(title)) return 'technical';
+  if (/\b(agriculture|veterinary|veterinarian|slaughterhouse|agriculturist)\b/.test(title)) return 'agriculture';
+  if (/\b(sports|recreation)\b/.test(title)) return 'sports';
+  if (/\b(planning|development officer|urban planner)\b/.test(title)) return 'planning';
+  if (/\b(social worker|community affairs|social welfare)\b/.test(title)) return 'social_services';
+  if (/\b(information officer|media|communication|journalism)\b/.test(title)) return 'communications';
+  if (/\b(administrative|admin|clerk|secretary|office staff|administrative aide|administrative officer)\b/.test(title)) return 'administrative';
+
+  return 'administrative';
 };
 
 const screenPDSWithAPI = async (pdsFile, job) => {
@@ -77,23 +88,23 @@ export async function reassessApplication({ application, newFile, docType = 'pds
     );
 
     if (oldFiles.length > 0) {
-  const pathsToDelete = oldFiles.map(
-    f => `${application.job_id}/${application.applicant_id}/${f.name}`
-  );
-  const { error: deleteError } = await supabase.storage
-    .from('applicant_docs')
-    .remove(pathsToDelete);
-  
-  if (deleteError) {
-    console.warn('Could not delete old file:', deleteError);
-    // Continue anyway — the upload will succeed
-  }
-}
+      const pathsToDelete = oldFiles.map(
+        f => `${application.job_id}/${application.applicant_id}/${f.name}`
+      );
+      const { error: deleteError } = await supabase.storage
+        .from('applicant_docs')
+        .remove(pathsToDelete);
+
+      if (deleteError) {
+        console.warn('Could not delete old file:', deleteError);
+        // Continue anyway — the upload will succeed
+      }
+    }
   }
 
   // 2. Upload file to storage
   const ext = newFile.name.split('.').pop();
-  const prefix = docType;   // ✅ also fix the prefix bug from before
+  const prefix = docType;
   const filePath = `${application.job_id}/${application.applicant_id}/${prefix}-${Date.now()}.${ext}`;
 
   const { error: uploadError } = await supabase.storage
