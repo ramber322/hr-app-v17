@@ -315,19 +315,54 @@ export default function DashboardApplicant() {
               Here's what's happening with your job applications today.
             </p>
 
-            <div className="hero-stats">
-              {[
-                { label: 'Applications', value: stats.total },
-                { label: 'Pending', value: stats.pending },
-                { label: 'Interviews', value: stats.shortlisted },
-                { label: 'Hired', value: stats.hired }
-              ].map((item, i) => (
-                <div key={i} className="hero-stat">
-                  <div className="hero-stat-value">{item.value}</div>
-                  <div className="hero-stat-label">{item.label}</div>
-                </div>
-              ))}
-            </div>
+            
+<div className="hero-stats" style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+  gap: '0',
+  marginTop: '20px',
+  paddingTop: '15px',
+  borderTop: '1px solid rgba(255,255,255,0.20)'
+}}>
+  {[
+    { label: 'Applications', value: stats.total },
+    { label: 'Pending', value: stats.pending },
+    { label: 'Interviews', value: stats.shortlisted },
+    { label: 'Hired', value: stats.hired }
+  ].map((item, i) => (
+    <div key={i} className="hero-stat" style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '3px',
+      padding: '0 14px',
+      borderRight: i !== 3
+        ? '1px solid rgba(255,255,255,0.18)'
+        : 'none',
+      minWidth: 0
+    }}>
+      <div style={{
+        fontSize: '25px',
+        fontWeight: 800,
+        color: '#ffffff',
+        lineHeight: 1.15,
+        letterSpacing: '-0.7px',
+        fontVariantNumeric: 'tabular-nums'
+      }}>
+        {item.value}
+      </div>
+
+      <div style={{
+        fontSize: '11px',
+        fontWeight: 500,
+        color: 'rgba(255,255,255,0.78)',
+        whiteSpace: 'nowrap'
+      }}>
+        {item.label}
+      </div>
+    </div>
+  ))}
+</div>
+
           </div>
         </div>
 

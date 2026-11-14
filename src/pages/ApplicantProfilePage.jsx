@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 import { PatternBackground } from '../components/PatternBackground';
 import '/src/styles/ApplicantProfilePage.css';
 import Loader from '../components/Loader';
-import { BasiconsDocumentIcon, CircularCheckSuccessIcon } from "../components/icons/CustomIcons";
+import { BasiconsDocumentIcon, CircularCheckSuccessIcon, AccountUserRoundIcon } from "../components/icons/CustomIcons";
 
 // ─── Helper: format file size ─────────────────────────
 const formatFileSize = (bytes) => {
@@ -719,8 +719,42 @@ if (!allowedTypes.includes(file.type)) {
           </div>
 
           {/* ═══════════ Personal Information ═══════════ */}
-          <div className="profile-card">
-            <h3 className="card-title">Personal Information</h3>
+          <div
+  className="profile-card"
+  style={{
+    boxShadow: '0 1px 3px rgba(224, 15, 15, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04)',
+  }}
+>
+  <h3 className="card-title" style={{
+    background: 'linear-gradient(135deg, rgb(226, 235, 249) 0%, #dbeafe 100%)',
+    borderBottom: '1px solid #bfdbfe',
+    color: '#1a3a5c',
+    padding: '16px 20px',
+    borderRadius: '12px 12px 0 0',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    fontSize: '15px',
+    fontWeight: 700,
+    boxShadow: '0 -3px 12px rgba(147, 197, 253, 0.12), 0 4px 16px rgba(15, 23, 42, 0.04)',
+    margin: 0
+  }}>
+    <span style={{
+      width: '38px',
+      height: '38px',
+      borderRadius: '10px',
+      background: '#ffffff',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 2px 6px rgba(37,99,235,0.12)',
+      flexShrink: 0
+    }}>
+      <AccountUserRoundIcon size={21} color="#4F46E5" />
+    </span>
+    Personal Information
+  </h3>
+
             <div className="card-content">
               <div className="form-grid">
                 <div className="form-group">
