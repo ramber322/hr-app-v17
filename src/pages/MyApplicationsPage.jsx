@@ -490,12 +490,54 @@ if (docType === 'pds') {
               
               return (
                 <div key={app.id} className="application-card">
-                  <div className="card-header">
-                    <h3 className="job-title">{job?.position_title || 'Position Not Found'}</h3>
-                    <span className="status-badge" style={{ backgroundColor: statusStyle.bg, color: statusStyle.color }}>
-                      {statusStyle.text}
-                    </span>
-                  </div>
+                  <div className="card-header" style={{
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '12px',
+  padding: '7px 0',
+  marginBottom: '8px',
+}}>
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    flex: 1,
+    minWidth: 0,
+    transform: 'translateY(-4px)',   // ← lifts icon + text together
+  }}>
+    <div style={{
+      width: '32px',
+      height: '32px',
+      borderRadius: '8px',
+      background: '#eef2ff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+    }}>
+      <BasiconsBriefcaseIcon size={16} color="#4F46E5" />
+    </div>
+    <h3 className="job-title" style={{
+      margin: 0,
+      padding: 0,
+      minWidth: 0,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      lineHeight: 1.2,
+    }}>
+      {job?.position_title || 'Position Not Found'}
+    </h3>
+  </div>
+  <span className="status-badge" style={{
+    backgroundColor: statusStyle.bg,
+    color: statusStyle.color,
+    flexShrink: 0,
+  }}>
+    {statusStyle.text}
+  </span>
+</div>
                   <div className="job-location">
                     <img src={locationLogo} alt="location" className="location-icon" /> {job?.place_of_assignment || 'N/A'}
                   </div>
