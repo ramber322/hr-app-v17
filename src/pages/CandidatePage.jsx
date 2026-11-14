@@ -389,14 +389,22 @@ export default function CandidatesPage() {
     }
 
     .view-btn-small {
-      padding: 4px 12px;
-      background: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 11px;
-      cursor: pointer;
-    }
+  padding: 4px 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
 
     .view-btn-small:hover {
       background: #4338ca;
@@ -577,14 +585,38 @@ export default function CandidatesPage() {
                         </span>
                       </td>
                       <td>
-                        <button
+                    <a
   className="view-btn-small"
-  onClick={() => navigate(`/hr/jobs/${app.job_id}/candidates`, { 
-    state: { from: '/hr/candidates' } 
-  })}
+  href={`/hr/jobs/${app.job_id}/candidates`}
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      navigate(`/hr/jobs/${app.job_id}/candidates`, { state: { from: '/hr/candidates' } });
+    }
+  }}
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    padding: '4px 12px',
+    minHeight: '22px',
+    height: '22px',
+    lineHeight: '22px',
+    fontFamily: 'inherit',
+    fontSize: '11px',
+    fontWeight: 500,
+    color: '#e0e7ff',
+    border: 'none',
+    borderRadius: '4px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    verticalAlign: 'middle',
+  }}
 >
   View
-</button>
+</a>
                       </td>
                     </tr>
                   );

@@ -631,25 +631,46 @@ useEffect(() => {
                   <img src={calendarclockLogo} alt="Calendar" className="calendar-icon" /> Closing Date: {job.closing_date}
                 </div>
                 <div className="job-card-actions">
-                  <button className="view-btn" onClick={() => setShowDetails(job)}>
-                    View Details
-                  </button>
-                  <button 
-                    className="view-candidates-btn" 
-                    onClick={() => navigate(`/hr/jobs/${job.id}/candidates`)}
-                  >
-                    <img src={communityLogo} alt="Community"  style={{ 
-                width: 16, 
-                height: 16,
-                marginRight: 2,
-                marginBottom: 2,
-                 display: 'inline-block',
-
-        verticalAlign: 'middle',
-                filter: 'brightness(0) saturate(100%) invert(25%) sepia(50%) saturate(800%) hue-rotate(180deg) brightness(95%) contrast(90%)'
-    }}  className="community-icon" /> View Candidates ({job.applicants_count || 0})
-                  </button>
-                </div>
+  <button className="view-btn" onClick={() => setShowDetails(job)}>
+    View Details
+  </button>
+  <a
+    className="view-candidates-btn"
+    href={`/hr/jobs/${job.id}/candidates`}
+    rel="noopener noreferrer"
+    onClick={(e) => {
+      if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+        e.preventDefault();
+        navigate(`/hr/jobs/${job.id}/candidates`);
+      }
+    }}
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textDecoration: 'none',
+      fontFamily: 'inherit',
+      cursor: 'pointer',
+    }}
+  >
+    <img
+  src={communityLogo}
+  alt="Community"
+  style={{
+    width: 16,
+    height: 16,
+    marginRight: 2,
+    marginBottom: 1,
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    transform: 'translateX(-3px)',   // ← only the icon moves left 3px
+    filter: 'brightness(0) saturate(100%) invert(25%) sepia(50%) saturate(800%) hue-rotate(180deg) brightness(95%) contrast(90%)',
+  }}
+  className="community-icon"
+/>
+    View Candidates ({job.applicants_count || 0})
+  </a>
+</div>
               </div>
             ))
           )}

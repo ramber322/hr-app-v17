@@ -4,8 +4,9 @@ import Navbar from "../components/Navbar";
 import { supabase } from "../lib/supabase";
 import { getJobPostings } from "../services/jobService";
 import '../styles/BrowseJobsPage.css';
-import { CalendarColoredIcon, ApplicantCheckboxIcon, BasiconsFolderIcon, BasiconsDocumentIcon, BasiconsBriefcaseIcon } from "../components/icons/CustomIcons";
+import { CalendarColoredIcon, ApplicantCheckboxIcon, BasiconsInfoIcon, BasiconsFolderIcon, BasiconsDocumentIcon, BasiconsBriefcaseIcon } from "../components/icons/CustomIcons";
 import calendarLogo from '../assets/icon-calendar.png'
+
 import calendarminimalLogo from '../assets/calendar-minimal-icon.png';
 import Loader from '../components/Loader';
 ;
@@ -709,9 +710,12 @@ const docsSubmitted = {
   const renderAlreadyAppliedSummary = () => {
     return (
       <div className="already-applied-banner">
-        <div>⚠️ You have already applied to this position.</div>
+       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <BasiconsInfoIcon size={18} color="#92400e" />
+    You have already applied to this position.
+  </div>
         <div className="sub-text">
-          You can view your full application details and AI assessment in the My Applications page.
+          You can view your full application details below.
         </div>
       </div>
     );

@@ -1680,27 +1680,41 @@ if (oldStatus !== newStatus) {
 
             {/* View Interview Schedule Button - Placed at the bottom of the table */}
             <div className = "view-interview-schedule-div" >
-              <button className="view-interview-schedule-button"
-                onClick={() => {
-                  navigate(`/hr/jobs/${jobId}/interviews`, { 
-                    state: { from: location.pathname } 
-                  });
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#4338ca';
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = '#4f46e5';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 2px 8px rgba(79, 70, 229, 0.3)';
-                }}
-              >
-                <img src={calendarminimalLogo} alt="Community"
-           style={{ width: 18, height: 18,
-           filter: 'brightness(0) saturate(100%) invert(100%) brightness(90%)' }} /> View Interview Schedule
-              </button>
+              <a
+  className="view-interview-schedule-button"
+  href={`/hr/jobs/${jobId}/interviews`}
+  rel="noopener noreferrer"
+  style={{ textDecoration: 'none' }}
+  onClick={(e) => {
+    if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      navigate(`/hr/jobs/${jobId}/interviews`, {
+        state: { from: location.pathname },
+      });
+    }
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.background = '#4338ca';
+    e.currentTarget.style.transform = 'translateY(-2px)';
+    e.currentTarget.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.4)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.background = '#4f46e5';
+    e.currentTarget.style.transform = 'translateY(0)';
+    e.currentTarget.style.boxShadow = '0 2px 8px rgba(79, 70, 229, 0.3)';
+  }}
+>
+  <img
+    src={calendarminimalLogo}
+    alt="Community"
+    style={{
+      width: 18,
+      height: 18,
+      filter: 'brightness(0) saturate(100%) invert(100%) brightness(90%)',
+    }}
+  />{' '}
+  View Interview Schedule
+</a>
               <button  className="export-shortlist-btn"
                 onClick={exportShortlistPDF} >
                 <PdfIcon size={14}/> Export Shortlist (PDF)
@@ -2039,14 +2053,23 @@ border: `1px solid ${isFit ? '#bbf7d0' : '#fde68a'}`
             {/* TOR */}
             {job?.required_docs?.transcriptRecords && (
               <li style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #e8ebf5' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#1a1f36' }}>
-                  {selectedApplication.docs_submitted?.transcript ? (
-                    <DocumentCheckIcon size={22} color="#10b981" />
-                  ) : (
-                    <span style={{ color: '#ef4444', fontSize: '14px', fontWeight: 'bold' }}>✕</span>
-                  )}
-                  Transcript of Records
-                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '13px', color: '#1a1f36' }}>
+  <span style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22px',
+    height: '22px',
+    flexShrink: 0,
+  }}>
+    {selectedApplication.docs_submitted?.transcript ? (
+      <DocumentCheckIcon size={22} color="#10b981" />
+    ) : (
+      <span style={{ color: '#ef4444', fontSize: '14px', fontWeight: 'bold' }}>✕</span>
+    )}
+  </span>
+  Transcript of Records
+</span>
                 {selectedApplication.docs_submitted?.transcript && (
                   <JobCandidateButton onClick={() => viewDocument(selectedApplication.job_id, selectedApplication.applicant_id, 'transcript', 'Transcript')} />
                 )}
@@ -2056,14 +2079,23 @@ border: `1px solid ${isFit ? '#bbf7d0' : '#fde68a'}`
             {/* Performance Rating */}
             {job?.required_docs?.performanceRating && (
               <li style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #e8ebf5' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#1a1f36' }}>
-                  {selectedApplication.docs_submitted?.performanceRating ? (
-                    <DocumentCheckIcon size={22} color="#10b981" />
-                  ) : (
-                    <span style={{ color: '#ef4444', fontSize: '14px', fontWeight: 'bold' }}>✕</span>
-                  )}
-                  Performance Rating
-                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '13px', color: '#1a1f36' }}>
+  <span style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22px',
+    height: '22px',
+    flexShrink: 0,
+  }}>
+    {selectedApplication.docs_submitted?.performanceRating ? (
+      <DocumentCheckIcon size={22} color="#10b981" />
+    ) : (
+      <span style={{ color: '#ef4444', fontSize: '14px', fontWeight: 'bold' }}>✕</span>
+    )}
+  </span>
+  Performance Rating
+</span>
                 {selectedApplication.docs_submitted?.performanceRating && (
                   <JobCandidateButton onClick={() => viewDocument(selectedApplication.job_id, selectedApplication.applicant_id, 'performanceRating', 'Performance Rating')} />
                 )}
