@@ -1,6 +1,6 @@
 // Textbee SMS Service
-const TEXTBEE_API_KEY = 'txb_yztKqRe8CHYVTMl6Bop8bFLItu5TZbLw0';
-const TEXTBEE_DEVICE_ID = '6a9a699cccb6c727096c3a3b0';
+const TEXTBEE_API_KEY = 'txb_yztKqRe8CHYVTMl6Bop8bFLItu5TZbLw';
+const TEXTBEE_DEVICE_ID = '6a9a699cccb6c727096c3a3b';
 const TEXTBEE_API_URL = 'https://api.textbee.dev/api/v1/gateway/send-sms';
 
 /**

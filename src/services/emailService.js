@@ -1,10 +1,10 @@
 import emailjs from '@emailjs/browser';
 
 //  EmailJS credentials
-const SERVICE_ID = 'HR-APP-EMAILJS0';
-const TEMPLATE_ID = 'template_qqitxyc0';
-const TEMPLATE_ID_RESCHEDULE = 'template_x2xng2r0'; // Reschedule template
-const PUBLIC_KEY = 'BcfR8UpBMwRS06YQg0';
+const SERVICE_ID = 'HR-APP-EMAILJS';
+const TEMPLATE_ID = 'template_qqitxyc';
+const TEMPLATE_ID_RESCHEDULE = 'template_x2xng2r'; // Reschedule template
+const PUBLIC_KEY = 'BcfR8UpBMwRS06YQg';
 
 emailjs.init(PUBLIC_KEY);
 
