@@ -2753,6 +2753,99 @@ border: `1px solid ${isFit ? '#bbf7d0' : '#fde68a'}`
   </div>
 )}
 
+{/* Bulk Status Update Confirmation Modal */}
+{showBulkConfirmModal && (
+  <div className="modal-overlay" onClick={() => {
+    if (!bulkUpdating) setShowBulkConfirmModal(false);
+  }}>
+    <div className="confirm-card" onClick={(e) => e.stopPropagation()}>
+      <div className="confirm-card-header">
+        <span className="confirm-icon" style={{ fontSize: '28px' }}>
+          <CheckMarkSquareInterviewIcon size={38} color="#43ae4d" />
+        </span>
+        <h3>Confirm Bulk Status Update</h3>
+      </div>
+      <div className="confirm-card-body">
+        <p>Are you sure you want to update <strong>{selectedRows.length}</strong> candidate(s) to:</p>
+        <p style={{
+          fontWeight: '600',
+          fontSize: '16px',
+          color: '#1a1f36',
+          marginTop: '8px'
+        }}>
+          {pendingBulkStatus}
+        </p>
+        <p style={{ color: '#6c757d', fontSize: '14px', marginTop: '8px' }}>
+          Each applicant will be notified of this status change.
+        </p>
+      </div>
+      <div className="confirm-card-footer" style={{ margin: '0 -24px -24px -24px', padding: '16px 24px', borderRadius: '0 0 12px 12px' }}>
+        <button
+          className="btn-cancel"
+          onClick={() => setShowBulkConfirmModal(false)}
+          disabled={bulkUpdating}
+          style={{
+            padding: '8px 24px',
+            background: '#D3F0F9',
+            color: '#1a3a5c',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: bulkUpdating ? 'not-allowed' : 'pointer',
+            fontWeight: '500',
+            transition: 'background 0.2s ease',
+            opacity: bulkUpdating ? 0.5 : 1
+          }}
+          onMouseEnter={(e) => {
+            if (!bulkUpdating) e.currentTarget.style.background = '#b8e4f0';
+          }}
+          onMouseLeave={(e) => {
+            if (!bulkUpdating) e.currentTarget.style.background = '#D3F0F9';
+          }}
+        >
+          Cancel
+        </button>
+        <button
+          className="btn-confirm"
+          onClick={async () => {
+            setShowBulkConfirmModal(false);
+            await bulkUpdateStatus(pendingBulkStatus);
+            setPendingBulkStatus(null);
+          }}
+          disabled={bulkUpdating}
+          style={{
+            padding: '8px 24px',
+            background: bulkUpdating ? '#0f766e' : '#0d9488',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: bulkUpdating ? 'not-allowed' : 'pointer',
+            fontWeight: '500',
+            transition: 'all 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            opacity: bulkUpdating ? 0.7 : 1
+          }}
+          onMouseEnter={(e) => {
+            if (!bulkUpdating) e.currentTarget.style.background = '#0f766e';
+          }}
+          onMouseLeave={(e) => {
+            if (!bulkUpdating) e.currentTarget.style.background = '#0d9488';
+          }}
+        >
+          {bulkUpdating ? (
+            <>
+              <span className="spinner" />
+              Updating...
+            </>
+          ) : (
+            'Confirm'
+          )}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
 
 {/* Status Update Success Notification */}
